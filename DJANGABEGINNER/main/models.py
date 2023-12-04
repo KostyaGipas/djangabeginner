@@ -11,3 +11,17 @@ class Posts(models. Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+
+class ContactMe(models. Model):
+     name = models.TextField('Название', max_length= 50)
+     email = models.TextField('Описание', max_length= 50)
+     message = models.TextField('сообщение')
+
+     def __str__(self) -> str:
+        return self.name
+     
+     class Meta:
+        verbose_name = 'Напишите мне'
+        verbose_name_plural = 'Сообщения - напишите мне'
+
+     
