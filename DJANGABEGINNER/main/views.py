@@ -28,3 +28,6 @@ def index(request):
     }
     return render(request, 'main/home.html', context)
 
+def shop_view(request):
+    goods = Goods.objects.order_by('-id')
+    return render(request, 'main/shop.html', {'goods': goods})
