@@ -1,6 +1,12 @@
-from django.shortcuts import redirect, render
-from.forms import ContactMeForm
+from django.shortcuts import get_object_or_404, redirect, render
+from django.core.files.storage import FileSystemStorage
+from.forms import *
 from .models import *
+import uuid
+from django.utils.text import slugify
+from PIL import Image as PILImage
+from django.contrib.auth.decorators import permission_required, login_required
+
 # Create your views here.
 
 def home_view(request):
@@ -31,3 +37,60 @@ def index(request):
 def shop_view(request):
     goods = Goods.objects.order_by('-id')
     return render(request, 'main/shop.html', {'goods': goods})
+
+def addgood(request):
+    if request.method == 'POST':
+
+        add_goods_form = AddGoodForm(request.POST)
+
+        if add_goods_form.is_valid():
+            the_goods = add_goods_form.save(commit = False)
+            the_goods.author = request.user
+
+
+            the_goods.save()
+
+            image_files= request.FILES.getlist('image')          
+
+            for image_file in image_files:
+                PILImage.open(image_file)
+                fs = FileSystemStorage()
+                unique_filename = f"{uuid.uuid4()}_{slugify(image_file.name)}"
+                file_name = fs.save(unique_filename, image_file)
+                image_path = fs.url(file_name)
+
+
+                image = Image.objects.create(
+                    good = the_goods,
+                    image = image_path,
+                    file_name = file_name,
+                )
+
+                print('Этот Image', image)
+
+            return redirect('shop')
+        else:
+            print(add_goods_form.errors)
+    else:
+        add_goods_form = AddGoodForm()
+    
+    context = {
+        'add_goods_form' : add_goods_form,
+    }
+
+    return render(request, 'main/add_goods.html', context)
+
+@login_required
+def edit_goods_view(request, good_slug):
+    try: 
+        good_for_edit = get_object_or_404(Goods, slug=good_slug)
+        if request.POST:
+            edit_good_form = EditGoodForm(request.POST, instance=good_for_edit)
+        else:
+            edit_good_form = EditGoodForm(instance=good_for_edit)
+        return render(request, 'main/edit_goods.html')
+
+    except Exception as e:
+        print(f'строка: {e}')
+    
+
