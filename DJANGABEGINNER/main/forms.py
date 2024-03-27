@@ -1,5 +1,8 @@
+
 from. models import *
 from django.forms import ModelForm, TextInput, Textarea
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django import forms
 
 
 class ContactMeForm(ModelForm):
@@ -107,3 +110,17 @@ class EditGoodForm(ModelForm):
            
         }
 
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget = forms.TextInput(attrs={
+        'type' :  'text',
+        'class' : 'form-control',
+        'placeholder' : 'Введите логин',
+        'name' : 'login',
+        'id' : 'login_id',}))
+    password = forms.CharField(label='пароль', widget = forms.PasswordInput(attrs={
+         'type' :  'password',
+        'class' : 'form-control',
+        'placeholder' : 'Введите пароль',
+        'name' : 'password_login',
+        'id' : 'password_login_id',
+    }))

@@ -1,11 +1,17 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.files.storage import FileSystemStorage
+from django.urls import reverse_lazy
+
+from .utils import *
 from.forms import *
 from .models import *
 import uuid
 from django.utils.text import slugify
 from PIL import Image as PILImage
 from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
+
 
 # Create your views here.
 
@@ -76,6 +82,7 @@ def addgood(request):
     
     context = {
         'add_goods_form' : add_goods_form,
+        
     }
 
     return render(request, 'main/add_goods.html', context)
@@ -88,9 +95,27 @@ def edit_goods_view(request, good_slug):
             edit_good_form = EditGoodForm(request.POST, instance=good_for_edit)
         else:
             edit_good_form = EditGoodForm(instance=good_for_edit)
-        return render(request, 'main/edit_goods.html')
+        
+        context = {
+            'edit_good_form' : edit_good_form,
+             'good_for_edit' :  good_for_edit,
+        }
+
+        return render(request, 'main/edit_goods.html', context)
 
     except Exception as e:
         print(f'строка: {e}')
     
+class LoginUser(DataMixin, LoginView):
+    form_class = LoginUserForm
+    template_name = 'main/login.html'
 
+    #def get_context_data(self, *, object_list= None 
+
+    def get_success_url(self):
+        return reverse_lazy('shop')
+      
+
+def logout_user(request):
+    logout(request)
+    return render(request, 'main/login.html')

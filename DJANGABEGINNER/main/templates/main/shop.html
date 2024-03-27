@@ -64,17 +64,25 @@ https://templatemo.com/tm-559-zay-shop
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">   
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                        {% else %}
+                        <li class="nav-item">   
+                            <a class="nav-link" href="{% url 'login' %}">Log in</a>
                         </li>
+                        {% endif %} 
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                        <li class="nav-link">
+                            <a href="/admin"  class="nav-item dropdown-item">Admin</a>
+                        </li>
+                    {% endif %} 
                         <li class="nav-item">
                             <a class="nav-link" href="shop.html">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'add_good' %}">добавить фото на товар</a>
+                            <a class="nav-link" href="{% url 'add_good' %}">Добавить товар</a>
                         </li>
                     </ul>
                 </div>
@@ -160,6 +168,7 @@ https://templatemo.com/tm-559-zay-shop
                             <li><a class="text-decoration-none" href="#">Bag</a></li>
                             <li><a class="text-decoration-none" href="#">Sweather</a></li>
                             <li><a class="text-decoration-none" href="#">Sunglass</a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -211,14 +220,19 @@ https://templatemo.com/tm-559-zay-shop
                                 <a href="shop-single.html" class="h3 text-decoration-none">{{ good.name }} </a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li>{{ good.product_description }}</li>
+                                
                                     <li class="pt-2">
                                         <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        {% if request.user.is_authenticated and request.user.is_staff %}
                                         <a href="{% url 'edit_good' good_slug=good.slug %}">редактировать товар</a>
-                                    </li>
+                                        {% else %}
+                                        <a href="{% url 'edit_good' good_slug=good.slug %}">просмотреть товар</a>
+                                        {% endif %} 
+                                    </li>                                                               
                                 </ul>
                                 <ul class="list-unstyled d-flex justify-content-center mb-1">
                                     <li>

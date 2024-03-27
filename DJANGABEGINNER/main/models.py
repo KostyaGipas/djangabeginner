@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+import transliterate
 
 
 # Create your models here.
@@ -46,7 +47,7 @@ class Goods(models. Model):
          print('Saving goods....')
 
          slug_text = f'{self.name}-{self.pk}'
-         self.slug = slugify(slug_text)
+         self.slug = slugify(transliterate.translit(slug_text, reversed=True) )
 
          user = kwargs.pop('user', None)
          if user:
