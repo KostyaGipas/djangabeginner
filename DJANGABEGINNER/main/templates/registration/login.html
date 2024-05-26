@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Stackfindover: Sign in</title>
-  <link rel="stylesheet"  href="csslogin.css">
+  <link rel="stylesheet"  href="{% static 'assets/css/csslogin.css'%}">
 </head>
 
 <body>
@@ -43,16 +43,17 @@
       </div>
       <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
         <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-          <h1><a href="{% static 'http://blog.stackfindover.com/' %}" rel="dofollow">Stackfindover</a></h1>
+          <h1><a href="{% static 'http://blog.stackfindover.com/' %}" rel="dofollow">Zay shop</a></h1>
         </div>
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">
               <span class="padding-bottom--15">Sign in to your account</span>
-              <form id="stripe-login">
+              <form id="stripe-login" method="post">
+                {% csrf_token %}
                 <div class="field padding-bottom--24">
-                  <label for="email">Email</label>
-                  <input type="email" name="email">
+                  <label for="email">Name</label>
+                  {{ form.username }}
                 </div>
                 <div class="field padding-bottom--24">
                   <div class="grid--50-50">
@@ -61,7 +62,8 @@
                       <a href="#">Forgot your password?</a>
                     </div>
                   </div>
-                  <input type="password" name="password">
+                  {{ form.password}}
+                  <div class = "form-error" style="color: blueviolet; background-color: rgb(191, 87, 212); border-radius: 10%;">{{ form.password.errors }}</div>
                 </div>
                 <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
                   <label for="checkbox">

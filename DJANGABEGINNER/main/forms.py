@@ -124,3 +124,53 @@ class LoginUserForm(AuthenticationForm):
         'name' : 'password_login',
         'id' : 'password_login_id',
     }))
+
+class RegisterUserform(UserCreationForm):
+    username = forms.CharField(label='логин', widget = forms.TextInput(attrs={
+                                                                            'class' : 'form-control',
+                                                                            'placeholder': 'Введите имя',
+                                                                            'name' : 'full_name',
+                                                                            'id' : 'full_name_id',
+                                                                        }))
+    password1 = forms.CharField(label = 'Логин', widget = forms.PasswordInput(attrs={
+                                                                            'class' : 'form-control',
+                                                                            'placeholder': 'Введите пароль',
+                                                                            'name' : 'password1',
+                                                                            'id' : 'password1_id',
+
+                                                                        }))
+    password1 = forms.CharField(label = 'Логин', widget = forms.PasswordInput(attrs={
+                                                                            'class' : 'form-control',
+                                                                            'placeholder': 'Повторите пароль',
+                                                                            'name' : 'password1',
+                                                                            'id' : 'password1_id',
+                                                                        }))
+    class Meta:
+        model=User
+        fields = ('username', 'password1', 'password2')
+        widjets = {
+            'username' : forms.TextInput(attrs={
+                'type' : 'text',
+                'class' : 'form-control',
+                'placeholder' : 'Введите имя',
+                'name' : 'full_name',
+                'id' : 'full_name_id',
+            }),
+            'password1' : forms.PasswordInput(attrs={
+                'type' : 'text',
+                'class' : 'form-control',
+                'placeholder' : 'Введите пароль',
+                'name' : 'password1',
+                'id' : 'password1_id',
+            }),
+            'password2' : forms.PasswordInput(attrs={
+                'type' : 'text',
+                'class' : 'form-control',
+                'placeholder' : 'Повторите пароль',
+                'name' : 'password2',
+                'id' : 'password2_id',
+            }),
+        }
+
+class CommentsForm(forms.Form):
+    comment = forms.CharField(widget= forms.TextInput(attrs={'placeholder' : 'Введите сообщение', 'class':'form-control',}))

@@ -126,7 +126,7 @@ https://templatemo.com/tm-559-zay-shop
                                 </div>
                             </div>
                             {{ form.username }}
-                                <div class = "form-error" style ="color: blueviolet; background-color:red; border-radius: 10%;">(( form.username.errors))</div>
+                                <div class = "form-error" style ="color: blueviolet; background-color:red; border-radius: 10%;">{{ form.username.errors }}</div>
                         </div>
                         <div class = "input-group">
                             <div class = "input-group-prepend">
@@ -136,7 +136,7 @@ https://templatemo.com/tm-559-zay-shop
                                 </div>
                             </div>
                             {{ form.password}}
-                                <div class = "form-error" style="color: blueviolet; background-color: rgb(191, 87, 212); border-radius: 10%;">(( form.password.errors))</div>
+                                <div class = "form-error" style="color: blueviolet; background-color: rgb(191, 87, 212); border-radius: 10%;">{{ form.password.errors }}</div>
                         </div>
                     </div>
                 </div>

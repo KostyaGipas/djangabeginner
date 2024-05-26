@@ -31,7 +31,7 @@ class ContactMe(models. Model):
         verbose_name = 'Напишите мне'
         verbose_name_plural = 'Сообщения - напишите мне'
 
-     
+
 class Goods(models. Model):
      name = models.TextField('Название', max_length= 50)
      product_description = models.TextField('Описание', null=True, blank=True,)
@@ -55,15 +55,12 @@ class Goods(models. Model):
 
          super(Goods, self).save(*args, **kwargs)
          print('Goods saved.')
-     
-
+           
      class Meta():
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
       
-
-
 class Image(models. Model):
     good = models.ForeignKey(Goods, on_delete=models.CASCADE, related_name= 'images', null=True, verbose_name='Товар',)
     image = models.ImageField('Изоображение', null = True, upload_to='images/', blank=True)
@@ -73,3 +70,17 @@ class Image(models. Model):
     class Meta():
       verbose_name = 'Файлы'  
       verbose_name_plural = 'Файлы'
+
+class Comments(models.Model):
+    good = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='Товар')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Отправитель')
+    message = models.TextField('сообщение', blank=True, null=True)
+    created_at =models.DateTimeField(auto_now_add=True, verbose_name='написан в')
+
+    def __str__(self):
+        
+        return f"{self.sender} {self.message}"
+    
+    class Meta:
+        verbose_name = 'комментарий'
+        verbose_name_plural = 'комментарии'

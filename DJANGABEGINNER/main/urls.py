@@ -3,7 +3,7 @@ from django.urls import include, path
 from . import views
 from django.conf import settings 
 from django.conf.urls.static import static
-from .views import LoginUser
+from .views import *
 
 urlpatterns=[
 #  path('', views.index, name='home'),
@@ -13,6 +13,8 @@ urlpatterns=[
     path('login/', LoginUser.as_view(), name= 'login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', views.logout_user, name = 'logout'),
+    path('register/',RegisterUserform.as_view(), name='register'),
+    path('add_comments/', views.add_comments_view, name= 'add_comments'),
     ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
 

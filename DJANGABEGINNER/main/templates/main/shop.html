@@ -3,19 +3,19 @@
 <html lang="en">
 
 <head>
-    <title>Zay Shop - Product Listing Page</title>
+    <title>Интернет магазин одежды</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico'%}">
 
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css'%}">
-    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css '%}">
-    <link rel="stylesheet" href="{% static 'assets/css/custom.css '%}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
 
     <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
 <!--
     
@@ -54,7 +54,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-                Zay
+                <h2>Интернет магазин одежды</h2>
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,20 +66,23 @@ https://templatemo.com/tm-559-zay-shop
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">   
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            <a class="nav-link" href="{% url 'logout' %}">Выйти из аккаунта</a>
                         </li>
                         {% else %}
                         <li class="nav-item">   
-                            <a class="nav-link" href="{% url 'login' %}">Log in</a>
+                            <a class="nav-link" href="{% url 'login' %}">Зайти в аккаунт</a>
                         </li>
                         {% endif %} 
                     {% if request.user.is_authenticated and request.user.is_staff %}
                         <li class="nav-link">
-                            <a href="/admin"  class="nav-item dropdown-item">Admin</a>
+                            <a href="/admin/"  class="nav-item dropdown-item">Админка</a>
                         </li>
                     {% endif %} 
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Shop</a>
+                            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Добро пожаловать  {{ user.username }}!</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'add_good' %}">Добавить товар</a>
@@ -137,26 +140,26 @@ https://templatemo.com/tm-559-zay-shop
         <div class="row">
 
             <div class="col-lg-3">
-                <h1 class="h2 pb-4">Categories</h1>
+                <h1 class="h2 pb-4">Категории</h1>
                 <ul class="list-unstyled templatemo-accordion">
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Gender
+                            Гендер
                             <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Men</a></li>
-                            <li><a class="text-decoration-none" href="#">Women</a></li>
+                            <li><a class="text-decoration-none" href="#">Мужчины</a></li>
+                            <li><a class="text-decoration-none" href="#">Женщины</a></li>
                         </ul>
                     </li>
                     <li class="pb-3">
                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Sale
+                            Скидка
                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Sport</a></li>
-                            <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                            <li><a class="text-decoration-none" href="#">Для спорта</a></li>
+                            <li><a class="text-decoration-none" href="#">Люкс одежда</a></li>
                         </ul>
                     </li>
                     <li class="pb-3">
@@ -165,9 +168,9 @@ https://templatemo.com/tm-559-zay-shop
                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">Bag</a></li>
-                            <li><a class="text-decoration-none" href="#">Sweather</a></li>
-                            <li><a class="text-decoration-none" href="#">Sunglass</a></li>
+                            <li><a class="text-decoration-none" href="#">Сумки</a></li>
+                            <li><a class="text-decoration-none" href="#">Для детей</a></li>
+                            <li><a class="text-decoration-none" href="#">Солненчные очки</a></li>
 
                         </ul>
                     </li>
@@ -179,22 +182,22 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="col-md-6">
                         <ul class="list-inline shop-top-menu pb-3 pt-1">
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
+                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Для всех</a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>
+                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Для мужчин</a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none" href="#">Women's</a>
+                                <a class="h3 text-dark text-decoration-none" href="#">Для женщин</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6 pb-4">
                         <div class="d-flex">
                             <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
+                                <option>Рекомендуемые</option>
+                                <option>от a до я </option>
+                                <option>Предметы первые</option>
                             </select>
                         </div>
                     </div>
@@ -229,6 +232,7 @@ https://templatemo.com/tm-559-zay-shop
                                         <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                         {% if request.user.is_authenticated and request.user.is_staff %}
                                         <a href="{% url 'edit_good' good_slug=good.slug %}">редактировать товар</a>
+                                        <h2>{{good.slug}}</h2>
                                         {% else %}
                                         <a href="{% url 'edit_good' good_slug=good.slug %}">просмотреть товар</a>
                                         {% endif %} 
@@ -280,10 +284,9 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container my-4">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
-                    <h1 class="h1">Our Brands</h1>
+                    <h1 class="h1">Наши бренды</h1>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        Lorem ipsum dolor sit amet.
+                        Закон o правах человека гласит, что он должен быть избранным, и он должен делать это сейчас
                     </p>
                 </div>
                 <div class="col-lg-9 m-auto tempaltemo-carousel">
@@ -306,16 +309,16 @@ https://templatemo.com/tm-559-zay-shop
                                     <div class="carousel-item active">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{% static 'assets/img/brand_01.png' %}" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{% static 'assets/img/brand_02.png' %}" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{% static 'assets/img/brand_03.png' %}" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{% static 'assets/img/brand_04.png' %}" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -413,10 +416,10 @@ https://templatemo.com/tm-559-zay-shop
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <label class="sr-only" for="subscribeEmail">Адрес почты</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribe</div>
+                        <div class="input-group-text btn-success text-light">Подписывайтесь</div>
                     </div>
                 </div>
             </div>
@@ -435,15 +438,44 @@ https://templatemo.com/tm-559-zay-shop
             </div>
         </div>
 
+        
     </footer>
+ 
     <!-- End Footer -->
 
     <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
+    <script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/templatemo.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+    <script>
+function sendComment(event){
+    var csrftokenv= $('#commentForm input[name="csrfmiddlewaretoken"]').val();
+    var taskId = '{{ add_comments_view }}'
+
+    var formData = new FormData($('#commentForm')[0]);
+    formData.append('task_id' ,taskId);
+    $.ajax({
+        url: '/add_comments/',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRFToken', csrfToken);
+        },
+        success: function(response) {
+            console.log("success " + response)
+        },
+        error: function(xhr, status, error) {
+            console.log("No success", error)
+        }
+    });
+}
+
+    </script>
     <!-- End Script -->
 </body>
 
